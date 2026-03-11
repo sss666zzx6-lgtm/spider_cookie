@@ -10,7 +10,7 @@ logger = get_logger("refresh_cookie_task")
 # 全局Session对象（保持会话）
 global_session = None
 # 初始Cookie字符串
-with open('renesas_cookie.txt', 'r', encoding='utf-8') as f:
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'renesas_cookie.txt'), 'r', encoding='utf-8') as f:
     cookie_str = f.read()
 logger.info(f"cookie_str: {cookie_str}")
 INITIAL_COOKIE = cookie_str
