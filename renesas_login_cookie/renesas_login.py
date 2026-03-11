@@ -1,102 +1,133 @@
-# from DrissionPage import WebPage, ChromiumOptions
-# import time
-#
-#
-# def open_renesas_website():
-#     """使用DrissionPage打开瑞萨电子官网（英文站）"""
-#     # 1. 配置浏览器选项（可选，比如禁用图片加载、无痕模式等）
-#     co = ChromiumOptions()
-#     # 可选：启用无痕模式（避免缓存影响）
-#     # co.add_argument('--incognito')
-#     # 可选：禁用图片加载，加快页面加载速度
-#     # co.add_argument('--blink-settings=imagesEnabled=false')
-#
-#     try:
-#         # 2. 创建WebPage对象（自动调用本地Chrome/Edge浏览器）
-#         page = WebPage(chromium_options=co)
-#
-#         # 3. 打开目标网址（会自动等待页面基本加载完成）
-#         url = 'https://www.renesas.com/en/user/sso-login/?destination=/en/products/cl8060%3Ftab%3Ddocumentation%26_gl%3D1*1lqy5xu*_gcl_au*MTk4Njc2NTQ3NS4xNzY4NDYzOTE0LjE3NzE1NjY3MDcuMTc3MTkyNjY2Mi4xNzcxOTI2NjY4*_ga*NjI4NjIzMjAwLjE3Njg0NjM5MTQ.*_ga_D1706WVDQV*czE3NzIwOTgzNjkkbzgkZzAkdDE3NzIwOTgzNzQkajU1JGwwJGgw'
-#         print(f'正在打开网址：{url}')
-#         page.get(url)
-#
-#         # 4. 等待页面完全加载（可选，根据页面复杂度调整等待时间）
-#         # 方式1：固定等待3秒（简单粗暴）
-#         time.sleep(3)
-#         # 方式2：等待某个元素加载完成（更优雅，推荐）
-#         # page.wait.ele_displayed('//header', timeout=10)  # 等待头部导航栏显示
-#
-#         print('✅ 网址已成功打开！')
-#
-#         # 5. 可选：停留10秒后关闭浏览器（按需调整/删除）
-#         print('页面将在10秒后关闭...')
-#         time.sleep(10)
-#
-#         # 6. 关闭页面和浏览器
-#         page.close()
-#
-#     except Exception as e:
-#         print(f'❌ 打开网址失败：{str(e)}')
-#     finally:
-#         # 确保浏览器进程完全退出
-#         try:
-#             page.quit()
-#         except:
-#             pass
-#
-#
-# if __name__ == '__main__':
-#     open_renesas_website()
-
 from DrissionPage import WebPage, ChromiumOptions
 import time
-urls = [f"https://auk.co.kr/eng/s2/product.asp?idx={i}" for i in range(1,4)]
+
+LOGIN_EMAIL = "3521445647@qq.com"
+LOGIN_PASSWORD = "123456xX@"
 
 
-def open_renesas_website():
-    """使用DrissionPage自动下载便携版Chromium，无界面打开瑞萨登录页"""
-    # 1. 配置浏览器选项（无界面运行，移除无效的portable参数）
+def get_renesas_cookie():
+    """打开瑞萨登录页 → 填写账号密码 → 点击登录按钮"""
     co = ChromiumOptions()
-    # 核心：无界面模式（新版API用set_argument）
+    # 调试时注释掉headless，显示浏览器窗口
     # co.set_argument('--headless=new')
-    # 可选：禁用图片/音频，加快加载
-    co.set_argument('--blink-settings=imagesEnabled=false')
-    co.set_argument('--mute-audio')
-    # 移除 co.set_browser_path(portable=True) → 新版无需此配置，自动下载便携版
+    # co.set_argument('--blink-settings=imagesEnabled=false')
+    # co.set_argument('--mute-audio')
 
+    page = None
     try:
-        # 2. 创建WebPage对象（自动检测浏览器，无本地浏览器则下载便携版）
-        print('📥 检测本地浏览器...无Chrome/Edge时将自动下载便携版Chromium（首次运行需等待）...')
-        # 新版WebPage会自动处理便携版下载，无需手动配置
         page = WebPage(chromium_options=co)
+        page.set.window.max()  # 最大化浏览器窗口
+        login_url = 'https://www.renesas.com/en/user/sso-login/?destination=/en/products/cl8060%3Ftab%3Ddocumentation%26_gl%3D1*1lqy5xu*_gcl_au*MTk4Njc2NTQ3NS4xNzY4NDYzOTE0LjE3NzE1NjY3MDcuMTc3MTkyNjY2Mi4xNzcxOTI2NjY4*_ga*NjI4NjIzMjAwLjE3Njg0NjM5MTQ.*_ga_D1706WVDQV*czE3NzIwOTgzNjkkbzgkZzAkdDE3NzIwOTgzNzQkajU1JGwwJGgw'
+        page.get(login_url)
 
-        # 3. 打开目标网址（支持JS渲染，适配登录页）
-        url = 'https://www.renesas.com/en/user/sso-login/?destination=/en/products/cl8060%3Ftab%3Ddocumentation%26_gl%3D1*1lqy5xu*_gcl_au*MTk4Njc2NTQ3NS4xNzY4NDYzOTE0LjE3NzE1NjY3MDcuMTc3MTkyNjY2Mi4xNzcxOTI2NjY4*_ga*NjI4NjIzMjAwLjE3Njg0NjM5MTQ.*_ga_D1706WVDQV*czE3NzIwOTgzNjkkbzgkZzAkdDE3NzIwOTgzNzQkajU1JGwwJGgw'
-        print(f'正在打开网址：{url}')
-        page.get(url)
-
-        # 4. 等待页面加载（等待登录表单元素，更精准）
-        try:
-            # 等待登录相关元素加载（可根据实际页面调整XPath）
-            page.wait.ele_displayed('//input[@type="text" or @type="email"]', timeout=15)
-            print('✅ 页面加载完成（登录表单已渲染）！')
-        except Exception as e:
-            print(f'⚠️ 页面加载超时（可能是元素XPath需调整），但网址已打开：{str(e)}')
-
-        # 5. 停留后关闭浏览器
-        print('页面将在10秒后关闭...')
+        # 等待页面加载
         time.sleep(10)
-        input()
-        page.close()
+        # 1. 填写邮箱
+        print('🔄 正在查找用户名输入框...')
+
+        # 主逻辑：等待并查找元素（带多种备选定位方式）
+        email_ele = None
+        # 尝试 1: CSS ID 定位（# 表示 ID）
+        try:
+            email_ele = page.ele('#edit-username', timeout=10)
+            print('✅ 通过 ID 找到用户名输入框')
+        except:
+            # 尝试 2: name 属性
+            try:
+                email_ele = page.ele('@name=username', timeout=5)
+                print('✅ 通过 name 找到用户名输入框')
+            except:
+                # 尝试 3: data-drupal-selector 属性（最稳定）
+                try:
+                    email_ele = page.ele('@data-drupal-selector=edit-username', timeout=5)
+                    print('✅ 通过 data-drupal-selector 找到用户名输入框')
+                except:
+                    print('❌ 所有定位方式都失败了')
+
+        if email_ele:
+            email_ele.clear()
+            email_ele.input(LOGIN_EMAIL)
+            print(f'✅ 已填写邮箱：{LOGIN_EMAIL}')
+        else:
+            print('❌ 未找到用户名输入框，请手动检查页面结构')
+            # 打印当前页面所有输入框用于调试
+            inputs = page.eles('tag:input')
+            print(f'调试信息：当前页面找到 {len(inputs)} 个输入框')
+            for i, inp in enumerate(inputs[:5]):  # 只显示前 5 个
+                print(f'  [{i}] {inp.attrs}')
+
+        # 2. 填写密码
+        try:
+            password_ele = page.ele('#edit-password', timeout=10)
+            password_ele.clear()
+            password_ele.input(LOGIN_PASSWORD)
+            print(f'✅ 已填写密码')
+        except Exception as e:
+            print(f'❌ 未找到密码输入框：{e}')
+            return
+
+        # 3. 定位并点击登录按钮（核心新增逻辑）
+        try:
+            # 方式1：用id定位（最推荐，id唯一且稳定）
+            login_btn = page.ele('#edit-submit', timeout=10)
+            # 方式2：备选（用value文本定位，适配按钮文本）
+            # login_btn = page.wait.ele_enabled('value:Log In', timeout=10)
+            # 方式3：备选（用data-drupal-selector定位）
+            # login_btn = page.wait.ele_enabled('data-drupal-selector:edit-submit', timeout=10)
+
+            # 点击登录按钮
+            login_btn.click()
+            print('✅ 已点击登录按钮，等待登录结果...')
+
+            # 等待登录跳转（等待 5 秒）
+            time.sleep(5)
+
+            # ================================
+            # 获取并保存 Cookie（核心新增）
+            # ================================
+            print('\n========== 获取 Cookie ==========')
+
+            # 获取所有 Cookie（DrissionPage 返回 CookiesList 对象，是列表格式）
+            cookies_list = page.cookies()
+
+            # 转换为字典格式
+            cookies_dict = {}
+            for cookie in cookies_list:
+                cookies_dict[cookie['name']] = cookie['value']
+
+            print(f'Cookie 字典格式：{cookies_dict}')
+
+            # 转换为字符串格式（用于 requests）
+            cookie_str = '; '.join([f"{k}={v}" for k, v in cookies_dict.items()])
+            print(f'\nCookie 字符串格式:\n{cookie_str}')
+
+            # 保存到文件
+            with open('renesas_cookie.txt', 'w', encoding='utf-8') as f:
+                f.write(cookie_str)
+            print(f'\n✅ Cookie 已保存到 renesas_cookie.txt')
+            print('================================\n')
+
+            # 返回 Cookie 字符串（方便后续使用）
+            return cookie_str
+
+        except Exception as e:
+            print(f'⚠️ 获取 Cookie 失败：{str(e)}')
+
+        # 停留页面查看结果
+        print('\n登录操作完成，页面将停留30秒...')
+        time.sleep(30)
 
     except Exception as e:
-        print(f'❌ 打开网址失败：{str(e)}')
+        print(f'❌ 整体流程失败：{str(e)}')
     finally:
-        # 确保Chromium进程完全退出
         try:
+            page.close()
             page.quit()
         except:
             pass
 
 if __name__ == '__main__':
-    open_renesas_website()
+    get_renesas_cookie()
+    with open('renesas_cookie.txt', 'r', encoding='utf-8') as f:
+        cookie_str = f.read()
+        print(cookie_str)
