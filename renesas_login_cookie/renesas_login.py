@@ -115,7 +115,7 @@ def get_renesas_cookie():
 
         # 停留页面查看结果
         print('\n登录操作完成，页面将停留30秒...')
-        time.sleep(30)
+        time.sleep(10)
 
     except Exception as e:
         print(f'❌ 整体流程失败：{str(e)}')
