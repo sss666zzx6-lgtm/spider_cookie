@@ -139,7 +139,7 @@ def login_infineon():
         # ========== 关键修改2：Firefox启动参数（解决无sudo/依赖问题） ==========
         browser = p.firefox.launch(
             # 改用新版无头模式（无桌面依赖，必须用new，不能用True）
-            headless="new",
+            headless=True,
             # 核心参数：绕过Linux系统限制、无sudo适配
             args=[
                 '--no-sandbox',  # 非root用户必需
