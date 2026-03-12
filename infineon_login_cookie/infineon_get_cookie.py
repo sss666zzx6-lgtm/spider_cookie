@@ -6,12 +6,12 @@ from util.logger import get_logger
 logger = get_logger("infineon_cookie")
 
 
-def login_foreign_website():
+def login_infineon():
     with sync_playwright() as p:
         # 1. 启动浏览器（设置代理、语言，模拟海外环境）
-        browser = p.chromium.launch(
-            headless=False,
-            # headless=True,
+        browser = p.firefox.launch(
+            # headless=False,
+            headless=True,
         )
         # 设置浏览器语言为英文（适配外国网站）
         context = browser.new_context()
@@ -105,7 +105,7 @@ def verify_cookie(cookie_str):
         return False
 
 if __name__ == "__main__":
-    cookie_str = login_foreign_website()
+    cookie_str = login_infineon()
     if cookie_str:
         print(cookie_str)
         verify_result = verify_cookie(cookie_str)
