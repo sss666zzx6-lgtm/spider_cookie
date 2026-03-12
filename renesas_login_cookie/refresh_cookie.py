@@ -134,3 +134,4 @@ if __name__ == "__main__":
         schedule.run_pending()
         # 缩短检查间隔到 1 分钟，减少时间误差
         time.sleep(60)
+#         nohup python -m renesas_login_cookie.refresh_cookie > refresh_cookie.log 2>&1 &
