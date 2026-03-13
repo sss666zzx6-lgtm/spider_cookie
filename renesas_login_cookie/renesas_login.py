@@ -1,5 +1,6 @@
 from DrissionPage import WebPage, ChromiumOptions
 import time
+from util.create_cookie_api import create_cookie
 
 LOGIN_EMAIL = "3521445647@qq.com"
 LOGIN_PASSWORD = "123456xX@"
@@ -131,3 +132,4 @@ if __name__ == '__main__':
     with open('renesas_cookie.txt', 'r', encoding='utf-8') as f:
         cookie_str = f.read()
         print(cookie_str)
+        create_cookie("www.renesas.com", cookie_str)
