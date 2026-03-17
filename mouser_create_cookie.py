@@ -4,8 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
-import requests
-from util.create_cookie_api import create_cookie
+from src.utils.create_cookie_api import create_cookie
 
 
 def get_mouser_cookie_with_edge(url: str) -> tuple[list, webdriver.Edge]:

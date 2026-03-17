@@ -3,7 +3,7 @@ import os
 import time
 import schedule
 from datetime import datetime, timedelta
-from util.logger import get_logger
+from src.utils.logger import get_logger
 
 logger = get_logger("refresh_cookie_task")
 

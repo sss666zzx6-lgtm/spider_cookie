@@ -1,6 +1,6 @@
 from DrissionPage import WebPage, ChromiumOptions
 import time
-from util.create_cookie_api import create_cookie
+from src.utils.create_cookie_api import create_cookie
 
 LOGIN_EMAIL = "3521445647@qq.com"
 LOGIN_PASSWORD = "123456xX@"

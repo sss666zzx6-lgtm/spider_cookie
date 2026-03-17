@@ -2,7 +2,7 @@
 # import os  # 新增：用于设置环境变量、校验路径
 # from playwright.sync_api import sync_playwright
 # import requests
-# from util.logger import get_logger
+# from utils.logger import get_logger
 #
 # logger = get_logger("infineon_cookie")
 #
