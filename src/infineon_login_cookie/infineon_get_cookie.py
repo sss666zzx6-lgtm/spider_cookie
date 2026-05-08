@@ -25,7 +25,7 @@ def login_infineon():
     with sync_playwright() as p:
         # 启动浏览器
         browser = p.chromium.launch(
-            headless=False,
+            # headless=False,
             args=[
                 '--disable-blink-features=AutomationControlled',
                 # 移除自动化特征
@@ -59,14 +59,10 @@ def login_infineon():
 
         page.wait_for_selector('#password', state='visible')
         page.fill('#password', pwd)
-        page.wait_for_selector('#signOnButton:not([disabled])')
-        page.wait_for_timeout(1000)
         page.click('#signOnButton')
-        page.wait_for_url("**/login/dashboard**", timeout=60000)
-        logger.info(f"已跳转到 dashboard，当前 URL: {page.url}")
-        page.wait_for_load_state("networkidle", timeout=30000)
         logger.info("已输入密码并点击登录按钮")
-        logger.info('========== 获取 Cookie ==========')
+
+        logger.info('\n========== 获取 Cookie ==========')
 
         # 获取所有 Cookie
         cookies = page.context.cookies()
@@ -75,16 +71,17 @@ def login_infineon():
         # 转换为字符串格式（用于 requests）
         cookie_str = '; '.join([f"{c['name']}={c['value']}" for c in cookies])
 
-        logger.info(f'Cookie 字符串:\n{cookie_str}')
+        logger.info(f'\nCookie 字符串:\n{cookie_str}')
 
         # 保存 Cookie 后停留 3 秒
-        logger.info('登录完成，停留 3 秒后退出...')
+        logger.info('\n登录完成，停留 3 秒后退出...')
         time.sleep(3)
-        input()
+
         browser.close()
 
     logger.info("========== Cookie 获取完成 ==========")
     return cookie_str
+
 
 def verify_cookie_impl(cookie_str):
     """验证 Cookie 有效性（内部实现，不含重试）"""
@@ -92,7 +89,8 @@ def verify_cookie_impl(cookie_str):
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Cookie': cookie_str,
     }
-    pdf_url = "https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle9016dqk-datasheet-en.pdf"
+
+    pdf_url = "https://www.infineon.com/assets/row/public/documents/10/64/infineon-automotive-application-guide-2021-applicationbrochure-en.pdf"
 
     try:
         response_pdf = requests.get(pdf_url, stream=True, headers=headers)
