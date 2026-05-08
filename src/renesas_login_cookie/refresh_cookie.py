@@ -20,10 +20,7 @@ def reset_session():
 
 # 初始化 Session（只执行一次，保持会话）
 def init_session():
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'renesas_cookie.txt'), 'r',
-              encoding='utf-8') as f:
-        cookie_str = f.read()
-    logger.info(f"cookie_str: {cookie_str}")
+    cookie_str = "_ALGOLIA=anonymous-b94a6d11-3b83-4b31-9800-f3c4324764d6; nmstat=272f2b61-d302-dee8-953c-17fbb3d27624; DT=DI1GWGErz9GRd2vZEkuhiDvKg; kapa_ab_group=ai_enabled; _ga_D1706WVDQV=GS2.1.s1773297649$o7$g1$t1773297700$j9$l0$h0; accessedDocumentsFetched=1; IDT-Language=en; ren_usr_pr=0; MkHcCurrencyId=USD; cf_clearance=sLyOMvsXV3Orni3fvIUyH0GMdTXHQYfsj0Milo121eU-1773297692-1.2.1.1-B3mGEdk3fG4hI5_9UxGa4ies5BxUA88gdvG8mSR7Bov_DrIQYxH2LC3jV8z4beWYHcH6k_ZAal9tIJRyt8rPI4JqjC9bYoxQEfYW7.pIRUCTlcK_.Hz42yf5eQfyLbO8rsKGBeljIkyZ8YbI97vIsgRZKzg7SXL.P3T3guCImmwTY5JNMPpUaOrLKveHgFVZePpn7nKSCU3TDgxH36.4taEgwMls4n8BNwZBIXXuggLxrEofAXTcV8n9WWpBX8Mw; xids=1029n-gZ9gFQmKBQryiTLsjiQ; idx=eyJ6aXAiOiJERUYiLCJ2ZXIiOiIxIiwiYWxpYXMiOiJlbmNyeXB0aW9ua2V5Iiwib2lkIjoiMDBvMWNneDRvNHlBYXBZMmgzNTciLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIiwieHNpZCI6ImlkeDZPQTZCLVNUUjRDVUlCbGZ3R2pCLXcifQ..rHKx3EMQ88woNH6H.w4H6dMD74j_hXwC2uCNzJsTwftRwPoZRYadROxQKwu9ZurEWD8ydxBzaGpaHiYZ_BwdeGTeFHRL2np-mCgniYWBlunRQaiHe5-HvlAl_0djmhvjIzSUafgin5a1sfQzapuZJlTC5T7UJB79OKc-pg2Tj52l-5TZM5OCj01DTvPYpoC_G0vXkOF5JKU-IyK5ygvuBqfQWWxIY8yG7S9MVjOUfWKEDD0wUb75RMlcqRAGd5L3zPgwolUM3kgilAAB4Imu0Ni-Z9QaTSxmPz5zMMtSnkYqOybABMjsNftTnf15XHO44IhIseSqloXBy9DtVl4OhxGTfYl6r_xnqix4FmCCkf751bh1IfFnW2LRdnbC-RnqDUmXhccXQdHcGMqKtomp98P3JyOoutE7aktrepguVECxU_qZE1dSnG3LC-Zu_Yia2ZTuOACIA5PttspsPhE7GoIphMWyo1WeR_63rdXa639U5bYTOROaYRUs_NtvPW27FtD9OEOHGspTMjuaNAnaH_azrZcenjdoNgOzBTfziNUJoiOknL5gugQGDuxsesE0YjEcr7aprX8ZCmmr3Xe4CTXsCOhXvep2YEERDm6DituqX7GO1-uhb3FLyNFdzLi91Y1M8WzEhyEmDl77zfcnXVsBVQQDEDDW640CZgcbMcvlQn_aIEMH9r_8MVeZwVX8THRk5u8OwQFuLUU9Fa9lswNbF3quWZIGpmyrLSoc-rkcFaodBYLgCHyYtgNG9baxUATu8gDy7hpbIe3QqllZPE2hvErXfL4IL2seW2hFixYsPyv5KDcCkFK85qhWr_YKxwoHWNwwcF0LY3BBWzT_e7NB5cDicYtjwuuxQg6zvRWlaGCoTStUd_B-BQB4-O_-cFlUUS3AlxKuikGvfCwa70MoW4Sw6BBSB-fGDN4q7lnfGhOE6zWgl7PfMKG6jwsI.z7hV1YWlAKSvTV6gaKKWjw; myr=102Bxjt8k2xQbSTDVHWugleBA; idt_user_login_type=login; uid=6942801; referrer_path=/products/cl8060; notice_behavior=none; _ga=GA1.1.1401676060.1772535507; ELOQUA=GUID=7C83A6B8AC734A69877ED6FFC79B8D00; _gcl_au=1.1.2137071434.1772535507.426341254.1773297694.1773297694; MkHcLang=en; sid=102Bxjt8k2xQbSTDVHWugleBA; JSESSIONID=312E85D56041FCA75D475719AD63142E; proximity_b7b50f02d73fdbb68d58d277864c3613=eyJ6aXAiOiJERUYiLCJwMnMiOiItcnVTTWFZWlJhRk0xRWxnZmwwdW5BIiwicDJjIjoxMDAwLCJ2ZXIiOiIxIiwiZW5jIjoiQTI1NkdDTSIsImFsZyI6IlBCRVMyLUhTNTEyK0EyNTZLVyJ9.FTCbrZw82x6TM-Jy6DxnIGEoaAr3utISd_jNoNebnwqWxtwC2lBlaA.SIi5ndnku8lvcq2I.Xa7KAd5wQ8H1rhFGKZnxCS4a1-NFalBZDez0cg340aJwPLDWwxOpBHaT-W58SZiuhD-fPJwpa253nTymwkfL5fmCntasZULkdFDJ3Y5m_zKJnbb5S4hpavYbki2TqCsI5WpD6jVt8ePa1Sj0Aro6ORb_LJpTwHBD66R-BViG3aGReQ.BypzzZMmvwlbslcYxk1jzg; __cf_bm=qclzfW0rS5yWXEkB0sMW.1189eDfAjV.HyH5uVgFGOU-1773297692.560536-1.0.1.1-26rbmX5XuiWayt5t1aBlfJK30fH95OwRnh17h7un9vwbyVLbFEen7aiGNgDkTx_Tzp1jAHu3rSD4qVpPT9Os349u7PkJKqsUCBZe0eYA0zEKu4ihwEa915iqs8.nXt0d; SSESS8d786bdf64747b7f1b2e52f729beec12=24k0boqc4f4ihl523khmiiu96a"
     INITIAL_COOKIE = cookie_str
     """初始化全局 Session 对象，设置 Cookie 和 UA"""
     global global_session
@@ -75,7 +72,7 @@ def verify_cookie(session):
 def task():
     """定时任务核心逻辑：验证 Cookie"""
     logger.info("=" * 50)
-    logger.info("开始执行 6 小时一次的 Cookie 验证任务")
+    logger.info("开始执行 1 小时一次的 Cookie 验证任务")
 
     # 记录任务开始时间
     start_time = datetime.now()
@@ -123,7 +120,7 @@ if __name__ == "__main__":
 
     # 4. 配置精准的定时任务：每 1 小时执行一次
     schedule.every(1).hours.do(task)
-    logger.info(f"定时任务已配置：每 6 小时执行一次 Cookie 验证")
+    logger.info(f"定时任务已配置：每 1 小时执行一次 Cookie 验证")
 
     # 5. 打印下次执行时间（便于调试）
     next_run = schedule.next_run()
@@ -134,4 +131,4 @@ if __name__ == "__main__":
         schedule.run_pending()
         # 缩短检查间隔到 1 分钟，减少时间误差
         time.sleep(60)
-#         nohup python -m renesas_login_cookie.refresh_cookie > refresh_cookie.log 2>&1 &
+#         nohup python -m src.renesas_login_cookie.refresh_cookie > refresh_cookie.log 2>&1 &
