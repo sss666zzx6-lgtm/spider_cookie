@@ -1,9 +1,10 @@
 from DrissionPage import WebPage, ChromiumOptions
 import time
 from src.utils.create_cookie_api import create_cookie
+from src.utils.config import settings
 
-LOGIN_EMAIL = "3521445647@qq.com"
-LOGIN_PASSWORD = "123456xX@"
+LOGIN_EMAIL = settings.RENESAS_EMAIL
+LOGIN_PASSWORD = settings.RENESAS_PASSWORD
 
 
 def get_renesas_cookie():

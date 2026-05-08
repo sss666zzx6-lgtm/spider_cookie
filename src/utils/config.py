@@ -28,6 +28,12 @@ class Settings:
     INFINEON_USER: Optional[str] = os.getenv("INFINEON_USER")
     INFINEON_PWD: Optional[str] = os.getenv("INFINEON_PWD")
 
+    ES_USER: Optional[str] = os.getenv("ES_USER")
+    ES_PWD: Optional[str] = os.getenv("ES_PWD")
+
+    RENESAS_EMAIL: Optional[str] = os.getenv("RENESAS_EMAIL")
+    RENESAS_PASSWORD: Optional[str] = os.getenv("RENESAS_PASSWORD")
+
     # DARWIN
     DARWIN_AK: Optional[str] = os.getenv("DARWIN_AK")
     DARWIN_SK: Optional[str] = os.getenv("DARWIN_SK")

@@ -1,7 +1,8 @@
 import requests
+from src.utils.config import settings
 
 ES   = "http://lumy-z4p.public.cn-hangzhou.es-serverless.aliyuncs.com:9200"
-AUTH = ("lumy-z4p", "0TQiqmXICEyq1wtwqKfsVKeJMr9OcF")
+AUTH = (settings.ES_USER, settings.ES_PWD)
 
 FIELDS = ["application_circuits", "function_blocks", "pin_config"]
 
@@ -111,8 +112,8 @@ print("-" * 80)
 for brand, st in sorted(brand_stats.items(), key=lambda x: x[1]["total"], reverse=True):
     t = st["total"]
     print(
-        f"{brand:<18} {t:>8,} {st['all_three']:>8,} {st['missing_one']:>6,}({st['missing_one'] / t * 100:>6.2f}%)             "
-        f" {st['missing_two']:>6,}({st['missing_two'] / t * 100:>6.2f}%) {st['missing_all']:>6,}({st['missing_all'] / t * 100:>6.2f}%)")
+        f"{brand:<18} {t:>8,} {st['all_three']:>8,} {st['missing_one']:>6,}({st['missing_one'] / t * 100:>.2f}%)"
+        f" {st['missing_two']:>6,}({st['missing_two'] / t * 100:>.2f}%) {st['missing_all']:>6,}({st['missing_all'] / t * 100:>.2f}%)")
 print()
 if missing_details:
     print(f"缺失明细（共 {len(missing_details)} 个型号缺失）:")
